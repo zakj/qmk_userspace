@@ -1,5 +1,7 @@
 # QMK userspace for Keebio Nyquist LM
 
+![Keymap](keymap-drawer/keebio_nyquist_lm_rev1.svg)
+
 Needs [mise](https://mise.jdx.dev) and Docker. `mise run setup` clones
 `qmk_firmware` alongside this repo; everything else runs in the `qmk_cli`
 container against it.

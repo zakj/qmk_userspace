@@ -14,3 +14,7 @@
 compile_commands.json
 .clangd/
 .cache/
+
+# keymap-drawer intermediate output; the SVG is checked in
+keymap-drawer/*.yaml
+!keymap-drawer/config.yaml
