@@ -2,6 +2,7 @@ parse_config:
   # Mod-tap holds are emitted raw, without a qmk_keycode_map lookup.
   raw_binding_map:
     LCTL_T(KC_ESC): {t: ESC, h: $$mdi:apple-keyboard-control$$}
+    LSFT_T(KC_GRV): {t: '`', h: $$mdi:apple-keyboard-shift$$}
     SC_SENT: {t: $$tabler:corner-down-left$$, h: $$mdi:apple-keyboard-shift$$}
 
   # A glyph only renders when it is the entire legend, so modifier functions
