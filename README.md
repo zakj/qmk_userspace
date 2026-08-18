@@ -10,6 +10,3 @@ container against it.
 | `mise run draw` | regenerate the diagrams in `keymap-drawer/` |
 | `mise run fmt` | grid-align the `LAYOUT()` blocks |
 | `mise run shell` | interactive container with both trees mounted |
-
-`fmt` uses [qmk-layout-fmt](https://github.com/OneDeadKey/qmk-layout-fmt), which
-leaves some invalid trailing commas.

@@ -1,7 +1,7 @@
 [tools]
 jq = "latest"
+"ubi:rcorre/qmkfmt" = "latest"
 "pipx:keymap-drawer" = "latest"
-"pipx:qmk-layout-fmt" = "latest"
 
 [env]
 QMK_FIRMWARE = "{{config_root}}/../qmk_firmware"
@@ -47,9 +47,15 @@ done
 """
 
 [tasks.fmt]
-description = "Grid-align LAYOUT() blocks (leaves some invalid trailing commas)"
+description = "Grid-align LAYOUT() blocks"
 dir = "{{config_root}}"
-run = "qmk-layout-fmt keyboards/*/*/keymaps/*/keymap.c --uniform"
+run = """
+# clang-format is skipped because .clang-format sets ColumnLimit to 1000,
+# which collapses the grid onto a single line.
+for f in keyboards/*/*/keymaps/*/keymap.c; do
+  qmkfmt --no-clang-format --split-spaces=8 "$f"
+done
+"""
 
 [tasks.shell]
 description = "Interactive qmk_cli container with both trees mounted"
