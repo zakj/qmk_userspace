@@ -314,7 +314,12 @@ text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
-}</style>
+}
+svg.keymap { color: #24292e; }
+@media (prefers-color-scheme: dark) {
+  svg.keymap { color: #d1d6db; }
+}
+</style>
 <g transform="translate(30, 0)" class="layer-BASE">
 <text x="0" y="28" class="label" id="BASE">BASE:</text>
 <g transform="translate(0, 56)">

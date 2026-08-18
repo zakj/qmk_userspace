@@ -110,3 +110,10 @@ parse_config:
 draw_config:
   footer_text: zakj/qmk_userspace
   dark_mode: auto
+  # Tabler glyphs stroke with currentColor, which keymap-drawer never sets in
+  # either mode, so without this they stay black on a dark background.
+  svg_extra_style: |
+    svg.keymap { color: #24292e; }
+    @media (prefers-color-scheme: dark) {
+      svg.keymap { color: #d1d6db; }
+    }
