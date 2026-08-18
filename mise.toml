@@ -1,0 +1,57 @@
+[tools]
+jq = "latest"
+"pipx:keymap-drawer" = "latest"
+"pipx:qmk-layout-fmt" = "latest"
+
+[env]
+QMK_FIRMWARE = "{{config_root}}/../qmk_firmware"
+# Split on whitespace at the point of use, so `shell` can prepend `-it`.
+QMK_DOCKER_ARGS = "--rm -v {{config_root}}/../qmk_firmware:/qmk_firmware -v {{config_root}}:/qmk_userspace -e QMK_HOME=/qmk_firmware -e QMK_USERSPACE=/qmk_userspace -w /qmk_firmware ghcr.io/qmk/qmk_cli"
+KEYMAP_LAYER_NAMES = "BASE SYM FN"
+
+[tasks.setup]
+description = "Clone qmk_firmware alongside this repo"
+run = """
+if [ ! -d "$QMK_FIRMWARE" ]; then
+  git clone https://github.com/qmk/qmk_firmware.git "$QMK_FIRMWARE"
+  git -C "$QMK_FIRMWARE" submodule update --init --recursive
+fi
+"""
+
+[tasks.compile]
+description = "Build firmware for every target in qmk.json"
+depends = ["setup"]
+dir = "{{config_root}}"
+run = """
+jq -r '.build_targets[] | @tsv' qmk.json | while IFS="$(printf '\\t')" read -r kb km; do
+  docker run $QMK_DOCKER_ARGS qmk compile -kb "$kb" -km "$km"
+done
+"""
+
+[tasks.draw]
+description = "Regenerate keymap diagrams in keymap-drawer/"
+depends = ["setup"]
+dir = "{{config_root}}"
+run = """
+jq -r '.build_targets[] | @tsv' qmk.json | while IFS="$(printf '\\t')" read -r kb km; do
+  slug=$(echo "$kb" | tr / _)
+  json=$(mktemp)
+  # Without -kb, c2json infers the keyboard from the keymap path and drops the
+  # revision, which leaves keymap-drawer unable to look up the layout.
+  docker run $QMK_DOCKER_ARGS qmk c2json -kb "$kb" -km "$km" > "$json"
+  keymap -c keymap-drawer/config.yaml parse -q "$json" \
+    --layer-names $KEYMAP_LAYER_NAMES > "keymap-drawer/$slug.yaml"
+  keymap -c keymap-drawer/config.yaml draw "keymap-drawer/$slug.yaml" > "keymap-drawer/$slug.svg"
+  rm -f "$json"
+done
+"""
+
+[tasks.fmt]
+description = "Grid-align LAYOUT() blocks (leaves some invalid trailing commas)"
+dir = "{{config_root}}"
+run = "qmk-layout-fmt keyboards/*/*/keymaps/*/keymap.c --uniform"
+
+[tasks.shell]
+description = "Interactive qmk_cli container with both trees mounted"
+depends = ["setup"]
+run = "docker run -it $QMK_DOCKER_ARGS bash"

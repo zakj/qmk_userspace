@@ -1,0 +1,111 @@
+parse_config:
+  # Mod-tap holds are emitted raw, without a qmk_keycode_map lookup.
+  raw_binding_map:
+    LCTL_T(KC_ESC): {t: ESC, h: $$mdi:apple-keyboard-control$$}
+    SC_SENT: {t: $$tabler:corner-down-left$$, h: $$mdi:apple-keyboard-shift$$}
+
+  # A glyph only renders when it is the entire legend, so modifier functions
+  # like G(KC_LCBR) use text symbols rather than the icons below.
+  modifier_fn_map:
+    left_ctrl: ⌃
+    right_ctrl: ⌃
+    left_shift: ⇧
+    right_shift: ⇧
+    left_alt: ⌥
+    right_alt: ⌥
+    left_gui: ⌘
+    right_gui: ⌘
+    keycode_combiner: "{mods}{key}"
+    mod_combiner: "{mod_1}{mod_2}"
+
+  # keymap-drawer replaces this map rather than merging into it, so its defaults
+  # are repeated here. Refresh them with `keymap dump-config`.
+  qmk_keycode_map:
+    AMPERSAND: '&'
+    AMPR: '&'
+    ASTERISK: '*'
+    ASTR: '*'
+    AT: '@'
+    BACKSLASH: \
+    BSLS: \
+    CIRC: ^
+    CIRCUMFLEX: ^
+    COLN: ':'
+    COLON: ':'
+    COMM: ','
+    COMMA: ','
+    DLR: $
+    DOLLAR: $
+    DOT: .
+    DOUBLE_QUOTE: '"'
+    DQT: '"'
+    DQUO: '"'
+    EQL: '='
+    EQUAL: '='
+    EXCLAIM: '!'
+    EXLM: '!'
+    GRAVE: '`'
+    GRV: '`'
+    GT: '>'
+    HASH: '#'
+    LABK: <
+    LBRC: '['
+    LCBR: '{'
+    LEFT_ANGLE_BRACKET: <
+    LEFT_BRACKET: '['
+    LEFT_CURLY_BRACE: '{'
+    LEFT_PAREN: (
+    LPRN: (
+    LT: <
+    MINS: '-'
+    MINUS: '-'
+    'NO': ''
+    NONUS_HASH: '#'
+    NUHS: '#'
+    PERC: '%'
+    PERCENT: '%'
+    PIPE: '|'
+    PLUS: +
+    QUES: '?'
+    QUESTION: '?'
+    QUOT: ''''
+    QUOTE: ''''
+    RABK: '>'
+    RBRC: ']'
+    RCBR: '}'
+    RIGHT_ANGLE_BRACKET: '>'
+    RIGHT_BRACKET: ']'
+    RIGHT_CURLY_BRACE: '}'
+    RIGHT_PAREN: )
+    RPRN: )
+    SCLN: ;
+    SEMICOLON: ;
+    SLASH: /
+    SLSH: /
+    TILD: '~'
+    TILDE: '~'
+    UNDERSCORE: _
+    UNDS: _
+    XXXXXXX: ''
+
+    LGUI: $$mdi:apple-keyboard-command$$
+    RGUI: $$mdi:apple-keyboard-command$$
+    LCTL: $$mdi:apple-keyboard-control$$
+    RCTL: $$mdi:apple-keyboard-control$$
+    LALT: $$mdi:apple-keyboard-option$$
+    RALT: $$mdi:apple-keyboard-option$$
+    LSFT: $$mdi:apple-keyboard-shift$$
+    RSFT: $$mdi:apple-keyboard-shift$$
+    BSPC: $$tabler:backspace$$
+    DEL: $$tabler:square-x$$
+    ENT: $$tabler:corner-down-left$$
+    SPC: $$tabler:space$$
+    TAB: $$tabler:arrow-bar-to-right$$
+    UP: $$tabler:arrow-up$$
+    DOWN: $$tabler:arrow-down$$
+    LEFT: $$tabler:arrow-left$$
+    RGHT: $$tabler:arrow-right$$
+
+draw_config:
+  footer_text: zakj/qmk_userspace
+  dark_mode: auto
