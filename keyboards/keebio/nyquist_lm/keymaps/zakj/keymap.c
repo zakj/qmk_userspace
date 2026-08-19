@@ -30,3 +30,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const key_override_t bspc_del = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 const key_override_t *key_overrides[] = { &bspc_del, NULL };
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    rgb_matrix_set_color_all(0, 0, 0);
+
+    if (is_caps_word_on()) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            rgb_matrix_set_color(g_led_config.matrix_co[0][col], 80, 80, 80);
+            rgb_matrix_set_color(g_led_config.matrix_co[5][col], 80, 80, 80);
+        }
+    }
+
+    rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 64); // F
+    rgb_matrix_set_color(g_led_config.matrix_co[6][1], 0, 0, 64); // J
+    rgb_matrix_set_color(g_led_config.matrix_co[3][4], 0, 0, 64); // thumb shift
+    rgb_matrix_set_color(g_led_config.matrix_co[8][1], 0, 0, 64); // thumb space
+
+    return false;
+}
