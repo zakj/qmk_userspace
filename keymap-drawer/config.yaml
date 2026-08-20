@@ -3,7 +3,7 @@ parse_config:
   raw_binding_map:
     LCTL_T(KC_ESC): {t: ESC, h: $$mdi:apple-keyboard-control$$}
     LSFT_T(KC_GRV): {t: '`', h: $$mdi:apple-keyboard-shift$$}
-    SC_SENT: {t: $$tabler:corner-down-left$$, h: $$mdi:apple-keyboard-shift$$}
+    RSFT_T(KC_BSLS): {t: \, h: $$mdi:apple-keyboard-shift$$}
 
   # A glyph only renders when it is the entire legend, so modifier functions
   # like G(KC_LCBR) use text symbols rather than the icons below.

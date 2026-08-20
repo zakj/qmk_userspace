@@ -467,7 +467,7 @@ svg.keymap { color: #24292e; }
 </g>
 <g transform="translate(700, 140)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#tabler:corner-down-left" xlink:href="#tabler:corner-down-left" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:corner-down-left"/>
+<text x="0" y="0" class="key tap">\</text>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-6" y="12" height="12" width="12.0" class="key hold glyph mdi:apple-keyboard-shift"/>
 </g>
 <g transform="translate(28, 196)" class="key keypos-36">
@@ -498,8 +498,9 @@ svg.keymap { color: #24292e; }
 </a></g>
 <g transform="translate(420, 196)" class="key keypos-42">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#tabler:corner-down-left" xlink:href="#tabler:corner-down-left" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:corner-down-left"/>
 <a href="#SYM">
-<text x="0" y="0" class="key tap layer-activator">SYM</text>
+<text x="0" y="24" class="key hold layer-activator">SYM</text>
 </a></g>
 <g transform="translate(476, 196)" class="key keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -648,7 +649,7 @@ svg.keymap { color: #24292e; }
 </g>
 <g transform="translate(420, 140)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">\</text>
+<text x="0" y="0" class="key tap">=</text>
 </g>
 <g transform="translate(476, 140)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -664,7 +665,7 @@ svg.keymap { color: #24292e; }
 </g>
 <g transform="translate(644, 140)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">=</text>
+<text x="0" y="0" class="key tap">?</text>
 </g>
 <g transform="translate(700, 140)" class="key trans keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -722,9 +723,9 @@ svg.keymap { color: #24292e; }
 <g transform="translate(30, 560)" class="layer-FN">
 <text x="0" y="28" class="label" id="FN">FN:</text>
 <g transform="translate(0, 56)">
-<g transform="translate(28, 28)" class="key keypos-0">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">ESC</text>
+<g transform="translate(28, 28)" class="key trans keypos-0">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(84, 28)" class="key keypos-1">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -772,7 +773,7 @@ svg.keymap { color: #24292e; }
 </g>
 <g transform="translate(28, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#mdi:apple-keyboard-control" xlink:href="#mdi:apple-keyboard-control" x="-7" y="-7" height="14" width="14.0" class="key tap glyph mdi:apple-keyboard-control"/>
+<text x="0" y="0" class="key tap">ESC</text>
 </g>
 <g transform="translate(84, 84)" class="key keypos-13">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -808,6 +809,7 @@ svg.keymap { color: #24292e; }
 </g>
 <g transform="translate(700, 84)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#tabler:corner-down-left" xlink:href="#tabler:corner-down-left" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:corner-down-left"/>
 </g>
 <g transform="translate(28, 140)" class="key trans keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
