@@ -43,10 +43,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 64); // F
-    rgb_matrix_set_color(g_led_config.matrix_co[6][1], 0, 0, 64); // J
-    rgb_matrix_set_color(g_led_config.matrix_co[3][4], 0, 0, 64); // thumb shift
-    rgb_matrix_set_color(g_led_config.matrix_co[8][1], 0, 0, 64); // thumb space
+    rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 40); // F
+    rgb_matrix_set_color(g_led_config.matrix_co[6][1], 0, 0, 40); // J
+    rgb_matrix_set_color(g_led_config.matrix_co[3][4], 0, 0, 40); // thumb shift
+    rgb_matrix_set_color(g_led_config.matrix_co[8][1], 0, 0, 40); // thumb space
 
     return false;
 }
