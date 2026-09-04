@@ -495,7 +495,8 @@ svg.keymap { color: #24292e; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <a href="#SYM">
 <text x="0" y="0" class="key tap layer-activator">SYM</text>
-</a></g>
+</a><text x="0" y="24" class="key hold">sticky</text>
+</g>
 <g transform="translate(420, 196)" class="key keypos-42">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <use href="#tabler:corner-down-left" xlink:href="#tabler:corner-down-left" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:corner-down-left"/>

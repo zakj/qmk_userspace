@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "state_sync.h"
 
 #define SYM 1
 #define FN 2
@@ -7,6 +8,7 @@
 #define SFT_GRV LSFT_T(KC_GRV)
 #define SFT_BSL RSFT_T(KC_BSLS)
 #define SYM_ENT LT(SYM, KC_ENT)
+#define SYM_OSL OSL(SYM)
 #define CMD_LCB G(KC_LCBR)
 #define CMD_RCB G(KC_RCBR)
 #define CMD_LBR G(KC_LBRC)
@@ -17,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,            KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC,
         CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,            KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         SFT_GRV, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,            KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SFT_BSL,
-        MO(FN),  KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, MO(SYM),         SYM_ENT, KC_SPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        MO(FN),  KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, SYM_OSL,         SYM_ENT, KC_SPC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     [SYM] = LAYOUT_ortho_4x12(
         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,            KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
@@ -33,6 +35,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    // OSL runs through the tapping state machine, so holding it would otherwise
+    // delay each symbol until the symbol key's own release.
+    return keycode == SYM_OSL;
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     rgb_matrix_set_color_all(0, 0, 0);
 
@@ -41,6 +49,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(g_led_config.matrix_co[0][col], 80, 80, 80);
             rgb_matrix_set_color(g_led_config.matrix_co[5][col], 80, 80, 80);
         }
+    }
+
+    if (is_osl_armed()) {
+        rgb_matrix_set_color(g_led_config.matrix_co[3][5], 0, 40, 0); // thumb sym
+        rgb_matrix_set_color(g_led_config.matrix_co[8][0], 0, 40, 0); // thumb sym/enter
     }
 
     rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 40); // F
