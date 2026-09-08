@@ -41,6 +41,15 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     return keycode == SYM_OSL;
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // OSL's release only clears ONESHOT_PRESSED, so a hold leaves the layer
+    // armed for whatever is left of ONESHOT_TIMEOUT. Only a tap should arm it.
+    if (keycode == SYM_OSL && !record->event.pressed && !record->tap.count) {
+        clear_oneshot_layer_state(ONESHOT_START);
+    }
+    return true;
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     rgb_matrix_set_color_all(0, 0, 0);
 
