@@ -50,6 +50,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// Both shift keys on the left hand carry MOD_BIT_LSHIFT, and QMK tracks mods as
+// a bitmask rather than a refcount, so whichever releases first drops shift out
+// from under the other.
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static bool thumb_held, pinky_held;
+    switch (keycode) {
+        case KC_LSFT:
+            thumb_held = record->event.pressed;
+            break;
+        case SFT_GRV:
+            // A tap sends its own keycode and never owns the mod.
+            pinky_held = record->event.pressed && !record->tap.count;
+            break;
+        default:
+            return;
+    }
+    if (!record->event.pressed && (thumb_held || pinky_held)) {
+        register_mods(MOD_BIT_LSHIFT);
+    }
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     rgb_matrix_set_color_all(0, 0, 0);
 
