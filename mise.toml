@@ -7,7 +7,7 @@ jq = "latest"
 QMK_FIRMWARE = "{{config_root}}/../qmk_firmware"
 # Split on whitespace at the point of use, so `shell` can prepend `-it`.
 QMK_DOCKER_ARGS = "--rm -v {{config_root}}/../qmk_firmware:/qmk_firmware -v {{config_root}}:/qmk_userspace -e QMK_HOME=/qmk_firmware -e QMK_USERSPACE=/qmk_userspace -w /qmk_firmware ghcr.io/qmk/qmk_cli"
-KEYMAP_LAYER_NAMES = "BASE SYM FN"
+KEYMAP_LAYER_NAMES = "BASE SYM FN GAME"
 
 [tasks.setup]
 description = "Clone qmk_firmware alongside this repo"

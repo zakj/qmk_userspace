@@ -8,4 +8,7 @@
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #define RGB_MATRIX_DEFAULT_VAL 0
 
+// The game-layer indicators live on the left half, which may not be master.
+#define SPLIT_LAYER_STATE_ENABLE
+
 #define SPLIT_TRANSACTION_IDS_USER RPC_ID_SYNC_STATE

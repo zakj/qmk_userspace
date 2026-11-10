@@ -3,6 +3,13 @@
 
 #define SYM 1
 #define FN 2
+#define GAME 3
+
+enum custom_keycodes {
+    // Plain shift that Caps Word never sees, so double-tapping sprint can't
+    // turn it on.
+    GAME_SFT = SAFE_RANGE,
+};
 
 #define CTL_ESC LCTL_T(KC_ESC)
 #define SFT_GRV LSFT_T(KC_GRV)
@@ -28,10 +35,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, XXXXXXX,         _______, _______, _______, _______, _______, _______
     ),
     [FN] = LAYOUT_ortho_4x12(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-        KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, CMD_LCB, CMD_RCB, XXXXXXX, XXXXXXX, KC_ENT,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,         XXXXXXX, CMD_LBR, CMD_RBR, XXXXXXX, XXXXXXX, _______,
-        _______, _______, _______, _______, KC_SPC,  _______,         _______, _______, _______, _______, _______, _______
+        _______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+        KC_ESC,  TG(GAME), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, CMD_LCB, CMD_RCB, XXXXXXX, XXXXXXX, KC_ENT,
+        _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,         XXXXXXX, CMD_LBR, CMD_RBR, XXXXXXX, XXXXXXX, _______,
+        _______, _______,  _______, _______, KC_SPC,  _______,         _______, _______, _______, _______, _______, _______
+    ),
+    [GAME] = LAYOUT_ortho_4x12(
+        _______,  _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______,
+        KC_ESC,   _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______,
+        GAME_SFT, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______,
+        _______,  _______, _______, XXXXXXX, KC_SPC,  MO(SYM),         _______, _______, _______, _______, _______, _______
     )
 };
 
@@ -42,6 +55,14 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == GAME_SFT) {
+        if (record->event.pressed) {
+            register_mods(MOD_BIT_LSHIFT);
+        } else {
+            unregister_mods(MOD_BIT_LSHIFT);
+        }
+        return false;
+    }
     // OSL's release only clears ONESHOT_PRESSED, so a hold leaves the layer
     // armed for whatever is left of ONESHOT_TIMEOUT. Only a tap should arm it.
     if (keycode == SYM_OSL && !record->event.pressed && !record->tap.count) {
@@ -86,10 +107,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(g_led_config.matrix_co[8][0], 0, 40, 0); // thumb sym/enter
     }
 
-    rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 40); // F
-    rgb_matrix_set_color(g_led_config.matrix_co[6][1], 0, 0, 40); // J
-    rgb_matrix_set_color(g_led_config.matrix_co[3][4], 0, 0, 40); // thumb shift
-    rgb_matrix_set_color(g_led_config.matrix_co[8][1], 0, 0, 40); // thumb space
+    if (layer_state_is(GAME)) {
+        rgb_matrix_set_color(g_led_config.matrix_co[0][2], 40, 0, 0); // W
+        rgb_matrix_set_color(g_led_config.matrix_co[1][1], 40, 0, 0); // A
+        rgb_matrix_set_color(g_led_config.matrix_co[1][2], 40, 0, 0); // S
+        rgb_matrix_set_color(g_led_config.matrix_co[1][3], 40, 0, 0); // D
+        rgb_matrix_set_color(g_led_config.matrix_co[3][4], 40, 0, 0); // thumb space
+    } else {
+        rgb_matrix_set_color(g_led_config.matrix_co[1][4], 0, 0, 40); // F
+        rgb_matrix_set_color(g_led_config.matrix_co[6][1], 0, 0, 40); // J
+        rgb_matrix_set_color(g_led_config.matrix_co[3][4], 0, 0, 40); // thumb shift
+        rgb_matrix_set_color(g_led_config.matrix_co[8][1], 0, 0, 40); // thumb space
+    }
 
     return false;
 }
